@@ -1,0 +1,96 @@
+<form #userForm="ngForm" style="padding-right: 5%; padding-left: 5%">
+  <div
+    class="card"
+    style="
+      width: 100%;
+      margin-top: 2rem;
+      background-color: #edf2f6;
+      border-radius: 10px;
+      height: auto;
+    "
+  >
+    <div class="card-header">
+      <b>Listado de usuario</b>
+    </div>
+
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="documentNumber">Buscar por Número de Documento</label>
+          <input
+            type="text"
+            class="form-control"
+            id="documentNumber"
+            [(ngModel)]="documentNumber"
+            name="documentNumber"
+            placeholder="Ingrese el número de documento"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label for="name">Buscar por Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="textSearch"
+            name="name"
+            placeholder="Ingrese el nombre"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label for="email">Buscar por Correo</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="Ingrese el correo"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="offset-md-10 col-md-2 text-right">
+          <button style="margin-right: 10px;" class="btn btn-primary" type="button" (click)="Search()">Buscar</button>
+          <button class="btn btn-secondary" type="button" (click)="CleanValues()">Limpiar</button>
+        </div>
+      </div>
+
+      <table class="table table-striped mt-4">
+        <thead>
+          <tr>
+            <th scope="col">Número de Documento</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.documentNumber }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <button style="margin-right: 10px;" class="btn btn-info btn-sm" (click)="Edit(user.documentNumber)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="Delete(user.documentNumber)">Eliminar</button>
+            </td>
+          </tr>
+          <tr *ngIf="users.length === 0">
+            <td colspan="4" class="text-center">No se encontraron resultados</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-secondary" (click)="PreviousPage()">Anterior</button>
+        <div>
+          Página {{ page }} de {{ (totalPages) }}
+        </div>
+        <button class="btn btn-secondary" (click)="NextPage()">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</form>
